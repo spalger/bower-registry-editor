@@ -48,6 +48,19 @@ function startServer(done) {
     key: 'sid',
     store: new LruSessionStore()
   }));
+
+  app.use((function () {
+    function sendAsText() {
+      this.set('Content-Type', 'text/plain');
+      this.send.apply(this, arguments);
+    }
+
+    return function (req, res, next) {
+      res.text = sendAsText;
+      process.nextTick(next);
+    };
+  })());
+
   app.use(auth.middleware(app));
   app.use(app.router);
   app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
@@ -57,10 +70,13 @@ function startServer(done) {
   if ('development' === app.get('env')) {
     app.use(express.errorHandler());
   } else {
-    app.use(function (err, req, res) {
+    /* jshint unused: false */
+    // must have 4 args to get the error
+    app.use(function (err, req, res, next) {
       console.error(err.stack);
-      res.send(500, 'Something\'s broke!');
+      res.text(500, 'Something\'s broke!');
     });
+    /* jshint unused: true */
   }
 
   fs.readdirSync(__dirname + '/lib/routes').forEach(function (file) {
