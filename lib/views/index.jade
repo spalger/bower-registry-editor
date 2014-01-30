@@ -13,13 +13,15 @@ block content
       legend Search for a package
       fieldset
         .pure-g-r
-          input.pure-u-4-5(type="search" placeholder="Package Name" name="q")
+          input.pure-u-4-5(type="search" placeholder="Package Name" name="q" value=query)
           button.button.pure-u-1-5.pure-button.pure-button-primary(type="submit") Search
 
     ul.reuslts
       if results
         each result in results
           +row(result)
+        unless results.length
+          p no packages found
 
     script(type="template", id="result-template")
       +row({
