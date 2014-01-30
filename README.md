@@ -1,3 +1,3 @@
 # Bower Registry Editor
 
-This is a super simple app that is used to allow bower users to delete their own packages.
+This is a super simple app that allows bower users to delete packages they own.

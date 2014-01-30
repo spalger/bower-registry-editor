@@ -3,7 +3,6 @@ html
   head
     title Bower Registry Editor
     link(rel="stylesheet", href="/stylesheets/pure.css")
-    link(rel="stylesheet", href="/stylesheets/font-awesome.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
     block styles
     if user
@@ -11,6 +10,8 @@ html
         .user-avatar-bg {
           background-image: url(#{user.avatar});
         }
+    else
+      link(rel="stylesheet", href="/stylesheets/font-awesome.css")
 
   body
     header
@@ -30,3 +31,4 @@ html
 
     block content
     block scripts
+    <a href="https://github.com/spenceralger/bower-registry-editor"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
