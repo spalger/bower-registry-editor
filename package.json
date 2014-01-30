@@ -1,0 +1,20 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "jade": "*",
+    "less-middleware": "*",
+    "everyauth": "~0.4.5",
+    "lodash": "~2.4.1",
+    "async": "~0.2.10",
+    "bower-registry-client": "~0.1.6",
+    "temp": "~0.6.0",
+    "github-url-from-git": "~1.1.1",
+    "request": "~2.33.0"
+  }
+}

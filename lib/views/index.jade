@@ -1,0 +1,28 @@
+extends layout
+
+mixin row(result)
+  li
+    a(href="/package/" + result.name)= result.name
+    | #{' - '}
+    span.url= result.url
+
+block content
+  if user
+
+    form.pure-form(method="post", action="/search")
+      legend Search for a package
+      fieldset
+        .pure-g-r
+          input.pure-u-4-5(type="search" placeholder="Package Name" name="q")
+          button.button.pure-u-1-5.pure-button.pure-button-primary(type="submit") Search
+
+    ul.reuslts
+      if results
+        each result in results
+          +row(result)
+
+    script(type="template", id="result-template")
+      +row({
+        name: "{{name}}",
+        url: "{{url}}"
+      })

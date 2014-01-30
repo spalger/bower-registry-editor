@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  form.pure-form.pure-form-aligned#edit
+    legend
+      h2 Edit #{pack.name}
+    .pure-control-group
+      label(for="new_name") Rename
+      input.pure-input.pure-u-3-5(type="text" name="new_name" placeholder="New Name")
+
+  form.pure-form.pure-form-aligned#delete()
+    legend
+      h2 Delete #{pack.name}
+    .pure-control-group
+      label(for="delete") Delete Package
+      button.pure-button.danger(disabled="disabled" name="delete" type="submit" confirm="Are you really really sure? People might depend on this package.") Delete #{pack.name}
+
+append scripts
+  script(src="/js/jquery.js")
+  script.
+    $('#delete').submit(function (e) {
+      e.preventDefault();
+
+      var sure = confirm('Are you really going to delete this package? Somebody might depend on it.');
+      if (!sure) return;
+
+      var $this = $(this);
+      $.post($this.attr('action'), { _method: 'delete' })
+        .then(function (xhr) {
+          window.history.back();
+        }, function (xhr, status, error) {
+          alert('ERROR: ' + (xhr.responseText || error || status));
+        });
+
+      $this
+        .find('[type=submit]')
+        .attr('disabled', 'disabled');
+    })
+    .find(':disabled')
+      .removeAttr('disabled');

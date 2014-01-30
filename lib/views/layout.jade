@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    title Bower Registry Editor
+    link(rel="stylesheet", href="/stylesheets/pure.css")
+    link(rel="stylesheet", href="/stylesheets/font-awesome.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    block styles
+    if user
+      style(type="text/css").
+        .user-avatar-bg {
+          background-image: url(#{user.avatar});
+        }
+
+  body
+    header
+      if user
+        .usercard
+          span.user.user-avatar-bg Hi #{user.login}
+      h1: a(href="/") Bower Registry Editor
+
+    hr
+
+    unless user
+      h2 Sign in with GitHub to edit your bower packages.
+      a.pure-button.btn-social.btn-github(href="/auth/github")
+        i.fa.fa-github
+        |  Sign in with GitHub
+
+
+    block content
+    block scripts
