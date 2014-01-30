@@ -2,9 +2,9 @@ extends layout
 
 mixin row(result)
   li
-    a(href="/package/" + result.name)= result.name
+    a(href= result.url ? "/package/" + result.name : null )= result.name
     | #{' - '}
-    span.url= result.url
+    span.url= result.url || 'Gists are not supported at this time.'
 
 block content
   if user
