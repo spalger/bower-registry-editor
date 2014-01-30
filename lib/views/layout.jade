@@ -21,16 +21,21 @@ html
         .usercard
           span.user.user-avatar-bg Hi #{user.login}
       h1: a(href="/") Bower Registry Editor
-
+      <a class="only-large" href="https://github.com/spenceralger/bower-registry-editor"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     hr
+    main
+      unless user
+        h2 Sign in with GitHub to edit your bower packages.
+        a.pure-button.btn-social.btn-github(href="/auth/github")
+          i.fa.fa-github
+          |  Sign in with GitHub
 
-    unless user
-      h2 Sign in with GitHub to edit your bower packages.
-      a.pure-button.btn-social.btn-github(href="/auth/github")
-        i.fa.fa-github
-        |  Sign in with GitHub
 
-
-    block content
-    block scripts
-    <a href="https://github.com/spenceralger/bower-registry-editor"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+      block content
+      block scripts
+    footer
+      p
+        a(href='https://twitter.com/spenceralger') @spenceralger
+        span.only-small
+          | #{' | '}
+          a(href='https://github.com/spenceralger/bower-registry-editor') Github

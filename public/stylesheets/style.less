@@ -5,6 +5,24 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+main {
+  min-height: 400px;
+}
+
+footer {
+  text-align: center;
+
+  a {
+    color: lighten(black, 40%);
+    font-size: 0.8em;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .usercard {
   float: right;
 }
@@ -53,3 +71,15 @@ form#edit {
 .btn-github{color:#fff;background-color:#444;border-color:rgba(0,0,0,0.2)}.btn-github:hover,.btn-github:focus,.btn-github:active,.btn-github.active,.open .dropdown-toggle.btn-github{color:#fff;background-color:#303030;border-color:rgba(0,0,0,0.2)}
 .btn-github:active,.btn-github.active,.open .dropdown-toggle.btn-github{background-image:none}
 .btn-github.disabled,.btn-github[disabled],fieldset[disabled] .btn-github,.btn-github.disabled:hover,.btn-github[disabled]:hover,fieldset[disabled] .btn-github:hover,.btn-github.disabled:focus,.btn-github[disabled]:focus,fieldset[disabled] .btn-github:focus,.btn-github.disabled:active,.btn-github[disabled]:active,fieldset[disabled] .btn-github:active,.btn-github.disabled.active,.btn-github[disabled].active,fieldset[disabled] .btn-github.active{background-color:#444;border-color:rgba(0,0,0,0.2)}
+
+
+@media (min-width: 700px) {
+  .only-small {
+    display: none !important;
+  }
+}
+@media (max-width: 700px) {
+  .only-large {
+    display: none !important;
+  }
+}
