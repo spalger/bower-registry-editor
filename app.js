@@ -1,10 +1,14 @@
-
 /**
  * Module dependencies.
  */
 
+var env = require('./env');
+Object.keys(env).forEach(function (key) {
+  process.env[key] = env[key];
+});
+
+require('newrelic');
 var crypto = require('crypto');
-var _ = require('lodash');
 var async = require('async');
 var express = require('express');
 var http = require('http');
@@ -12,8 +16,6 @@ var path = require('path');
 var fs = require('fs');
 var auth = require('./lib/auth_mw');
 var LruSessionStore = require('./lib/lru_session');
-
-_.assign(process.env, require('./env'));
 
 var secrets = {
   cookie: null,
@@ -35,6 +37,7 @@ function startServer(done) {
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/lib/views');
   app.set('view engine', 'jade');
+  app.set('trust proxy', !!process.env.NGINX_PROXY);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.urlencoded());
@@ -53,6 +56,11 @@ function startServer(done) {
   // development only
   if ('development' === app.get('env')) {
     app.use(express.errorHandler());
+  } else {
+    app.use(function (err, req, res) {
+      console.error(err.stack);
+      res.send(500, 'Something\'s broke!');
+    });
   }
 
   fs.readdirSync(__dirname + '/lib/routes').forEach(function (file) {
