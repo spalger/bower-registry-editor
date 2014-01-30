@@ -8,7 +8,6 @@ Object.keys(env).forEach(function (key) {
 });
 
 require('newrelic');
-var crypto = require('crypto');
 var async = require('async');
 var express = require('express');
 var http = require('http');
@@ -17,18 +16,7 @@ var fs = require('fs');
 var auth = require('./lib/auth_mw');
 var LruSessionStore = require('./lib/lru_session');
 
-var secrets = {
-  cookie: null,
-  session: null
-};
-
-function makeupSecret(name, done) {
-  crypto.randomBytes(256, function (err, buf) {
-    if (err) return done(err);
-    secrets[name] = '' + buf;
-    done();
-  });
-}
+var secrets = require('./lib/secrets');
 
 function startServer(done) {
   var app = express();
@@ -48,7 +36,6 @@ function startServer(done) {
     key: 'sid',
     store: new LruSessionStore()
   }));
-
   app.use((function () {
     function sendAsText() {
       this.set('Content-Type', 'text/plain');
@@ -64,10 +51,10 @@ function startServer(done) {
   app.use(auth.middleware(app));
   app.use(app.router);
   app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
-  app.use(express.static(path.join(__dirname, 'public')));
 
   // development only
   if ('development' === app.get('env')) {
+    app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.errorHandler());
   } else {
     /* jshint unused: false */
@@ -89,9 +76,8 @@ function startServer(done) {
   });
 }
 
+
 async.series([
-  async.apply(async.parallel, Object.keys(secrets).map(function (name) {
-    return makeupSecret.bind(null, name);
-  })),
+  secrets.init,
   startServer
 ]);
