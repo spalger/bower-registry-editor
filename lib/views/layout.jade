@@ -3,6 +3,7 @@ html
   head
     title Bower Registry Editor
     link(rel="stylesheet", href="/stylesheets/pure.css")
+    link(rel="stylesheet", href="/stylesheets/bootstrap-visibility.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     <!--[if lt IE 9]> <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> <![endif]-->
@@ -21,7 +22,7 @@ html
         .usercard
           span.user.user-avatar-bg Hi #{user.login}
       h1: a(href="/") Bower Registry Editor
-      <a class="only-large" href="https://github.com/spenceralger/bower-registry-editor"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+      <a class="hidden-xs" href="https://github.com/spenceralger/bower-registry-editor"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     hr
     main
       unless user
@@ -36,6 +37,5 @@ html
     footer
       p
         a(href='https://twitter.com/spenceralger') @spenceralger
-        span.only-small
-          | #{' | '}
-          a(href='https://github.com/spenceralger/bower-registry-editor') Github
+        | #{' | '}
+        a(href='https://github.com/spenceralger/bower-registry-editor') Github
