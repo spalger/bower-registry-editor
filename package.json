@@ -9,16 +9,16 @@
     "express": "3.4.8",
     "jade": "*",
     "less-middleware": "*",
-    "everyauth": "~0.4.5",
     "lodash": "~2.4.1",
     "async": "~0.2.10",
     "bower-registry-client": "~0.1.6",
     "temp": "~0.6.0",
-    "github-url-from-git": "~1.1.1",
     "request": "~2.33.0",
     "lru-cache": "~2.5.0",
     "newrelic": "~1.3.0",
     "levelup": "~0.18.2",
-    "leveldown": "~0.10.2"
+    "leveldown": "~0.10.2",
+    "connect-leveldb": "~0.1.5",
+    "github-oauth": "0.0.4"
   }
 }

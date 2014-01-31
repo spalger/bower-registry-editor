@@ -3,3 +3,4 @@ public/stylesheets/style.css
 public/complete_log.txt
 env.json
 request.db
+session.db
