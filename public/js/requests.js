@@ -7,9 +7,14 @@
   $.getJSON('/requests')
     .then(function (requests) {
       $list.html('');
-      _(requests).sortBy('time').each(function (request) {
-        $list.append(requestHtml(request));
-      });
+
+      if (requests.length) {
+        _(requests).sortBy('time').each(function (request) {
+          $list.append(requestHtml(request));
+        });
+      } else {
+        $list.html('<pre>No pending requests</pre>')
+      }
     }, ajaxError);
 
   var complete = [];
