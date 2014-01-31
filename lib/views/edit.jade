@@ -8,12 +8,15 @@ block content
       label(for="new_name") Rename
       input.pure-input.pure-u-3-5(type="text" name="new_name" placeholder="New Name")
 
-  form.pure-form.pure-form-aligned#delete()
-    legend
-      h2 Delete #{pack.name}
-    .pure-control-group
-      label(for="delete") Delete Package
-      button.pure-button.danger(disabled="disabled" name="delete" type="submit" confirm="Are you really really sure? People might depend on this package.") Delete #{pack.name}
+  if pack.delete_requested
+    p Delete request pending
+  else
+    form.pure-form.pure-form-aligned#delete()
+      legend
+        h2 Request Deletion of #{pack.name}
+      .pure-control-group
+        label(for="delete") Send Request
+        button.pure-button.danger(disabled="disabled" name="delete" type="submit" confirm="Are you really really sure? People might depend on this package.") Delete #{pack.name}
 
 append scripts
   script(src="/js/jquery.js")

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  ul#requests
+    pre Loading...
+
+  button#requests-save.pure-button.danger(disabled='disabled') Delete selected requests
+append scripts
+  script(src="/js/lodash.js")
+  script(src="/js/jquery.js")
+
+  script(type="template", id="request-template").
+    <li><label for="<%= name %>"><input name="<%= name %>" type="checkbox"/> <%= name %> - <%= url %></label></li>
+  script(src="/js/requests.js")

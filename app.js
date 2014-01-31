@@ -13,13 +13,15 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
-var auth = require('./lib/auth_mw');
+var auth = require('./lib/auth/middleware');
 var LruSessionStore = require('./lib/lru_session');
 
 var secrets = require('./lib/secrets');
 
 function startServer(done) {
   var app = express();
+
+  app.locals.env = app.get('env');
 
   // all environments
   app.set('port', process.env.PORT || 3000);
@@ -29,6 +31,7 @@ function startServer(done) {
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.urlencoded());
+  app.use(express.json());
   app.use(express.methodOverride());
   app.use(express.cookieParser(secrets.cookie));
   app.use(express.session({
@@ -48,7 +51,7 @@ function startServer(done) {
     };
   })());
 
-  app.use(auth.middleware(app));
+  app.use(auth.root(app));
   app.use(app.router);
   app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 
@@ -60,8 +63,12 @@ function startServer(done) {
     /* jshint unused: false */
     // must have 4 args to get the error
     app.use(function (err, req, res, next) {
+      if (!(err instanceof Error)) {
+        err = new Error(err);
+      }
+
       console.error(err.stack);
-      res.text(500, 'Something\'s broke!');
+      res.text(500, 'Something\'s broke! (' + err.message + ')');
     });
     /* jshint unused: true */
   }
